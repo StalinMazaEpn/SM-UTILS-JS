@@ -8,10 +8,15 @@ function IsJsonString(str) {
     } catch (e) {
         return false;
     }
-    return true;
 }
+
+const ReduceArrayByKeys = (array, keys_to_keep) => array.map(o => keys_to_keep.reduce((acc, curr) => {
+    acc[curr] = o[curr];
+    return acc;
+}, {}));
 
 
 module.exports = {
-    IsJsonString
+    IsJsonString,
+    ReduceArrayByKeys
 }

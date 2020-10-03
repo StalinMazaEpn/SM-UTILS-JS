@@ -1,6 +1,6 @@
 {
   "name": "@smtech97/sm-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Funciones útiles para manejar diferentes acciones en Javascript",
   "main": "index.js",
   "scripts": {
@@ -13,5 +13,5 @@
     "funciones"
   ],
   "author": "Stalin Maza",
-  "license": "ISC"
+  "license": "MIT"
 }
