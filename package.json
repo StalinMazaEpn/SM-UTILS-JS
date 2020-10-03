@@ -1,0 +1,17 @@
+{
+  "name": "@smtech97/sm-utils",
+  "version": "1.0.0",
+  "description": "Funciones útiles para manejar diferentes acciones en Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "utilidades",
+    "funciones"
+  ],
+  "author": "Stalin Maza",
+  "license": "ISC"
+}
