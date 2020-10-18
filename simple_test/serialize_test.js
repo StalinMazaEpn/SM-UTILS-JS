@@ -1,6 +1,6 @@
 const operators = require('../operators');
 
-const dataSimple = [114, 24.5402, new Date("2020-10-17"), "24.0000", {"Fecha": new Date("2020-10-17")}, [{"nombre": "Americo"}]];
+const dataSimple = [114, 24.540284, null, new Date("2020-10-17"), "24.0000", {"Fecha": new Date("2020-10-17")}, [{"nombre": "Americo", edad: undefined}]];
 const data = {
   "id": 114,
   "precio": 24.54020,
@@ -20,11 +20,19 @@ const data = {
   ]
 }
 const dataArray = [data];
-//const dataSerialized = operators.removeNulls(operators.serializeData(data)); //Works on Object
-//const dataSerialized = operators.removeNulls(operators.serializeData(dataArray)); //Not Works Correctly
-//const dataSerialized = dataArray.map(row=>operators.removeNulls(operators.serializeData(row))); //Works on Array
-//const dataSerialized = dataSimple.map(row=>operators.removeNulls(operators.serializeData(row)))
-//console.log(JSON.stringify(dataSerialized, null, 4));
-console.log(JSON.stringify(operators.removeNulls([{"id": 1, precio: null, age: undefined}, 8, "4", null], null, 4)));
-//console.log(operators.serializeData(new Date()))
-//console.log(JSON.stringify(dataSimple.map(row=>operators.removeNulls(operators.serializeData(row))), null, 4))
+
+/*console.warn(
+    JSON.stringify(
+        [dataSimple.map(row=>
+           operators.removeNulls( operators.serializeData(row, {
+            roundDigits: 4
+            }))
+        ).filter(row=>row!=null)]
+    , null, 4)
+);*/
+
+/*console.warn(
+    JSON.stringify(operators.removeNulls(operators.serializeData(data))
+    , null, 4)
+);*/
+

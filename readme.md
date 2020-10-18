@@ -17,7 +17,7 @@ IsJsonString('{"name": "Juan"}')
 ```JavaScript
 const smUtils = require('@smtech97/sm-utils/json');
 
-console.log(smUtils.IsJsonString('{"name": "Juan"}'));
+smUtils.IsJsonString('{"name": "Juan"}');
 ```
 
 

@@ -96,11 +96,16 @@ console.log(validateCedula("123456789")); //false
 
 **Serializar datos**
 
-Permite serializar datos de un array, un objecto o una variable
+Permite serializar datos de un array, un objecto o una variable, recibe el valor y
+las opciones de configuración en un objeto, no incluye valores nulos o indefinidos
 
+***Opciones ({})***
+{
+- excludeEmptyStrings: false, 
+//Habilita el no incluir strings vacios al serializar
+- getBoolsAsString: false, 
+//convertir valores booleanos, si es true se devuelve un string caso contrario un numero 0-1
 ```js
-console.log(serializeData(45.254)); 
-//45.25
 console.log(serializeData(
     [114, 24.5402, new Date("2020-10-17"), "24.0000", 
     {"Fecha": new Date("2020-10-17")}, 
@@ -108,7 +113,7 @@ console.log(serializeData(
 )); 
 /*
 [
-    114, 24.54, "2020-10-17", "24.0000",
+    114, 24.5402, "2020-10-17", "24.0000",
     { "Fecha": "2020-10-17" },
     [ { "nombre": "Americo" }]
 ]

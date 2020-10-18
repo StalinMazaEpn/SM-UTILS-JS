@@ -1,3 +1,5 @@
+const numbers = require("../numbers");
+
 class DateFormatter {
   static formatDate(date) {
     const fecha = new Date(date);
@@ -32,22 +34,12 @@ const intFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 2,
 });
 
-const roundFormatter = (val) => {
-  if (typeof val === "string") {
-    val = parseFloat(val);
-  }
-  return intFormatter.format(val);
-};
-
 function serializeData(body, options) {
   const data = { ...body };
   const serializedData = {};
   const defaultOptions = {
     excludeEmptyStrings: false,
     getBoolsAsString: false,
-    excludeNull: true,
-    excludeUndefined: true,
-    roundNumber: true,
   };
   const serializeOptions = { ...defaultOptions, ...options };
   if (!isObject(body)) {
@@ -56,9 +48,9 @@ function serializeData(body, options) {
   const bodyKeys = Object.getOwnPropertyNames(data);
   for (const attr of bodyKeys) {
     if (Array.isArray(data[attr])) {
-      const arrayData = data[attr].map((row) =>
-        serializeData(row, serializeOptions)
-      );
+      const arrayData = data[attr]
+        .filter((row) => row != null)
+        .map((row) => serializeData(row, serializeOptions));
       serializedData[attr] = arrayData;
     } else if (isObject(data[attr])) {
       if (!isObjectEmpty(data[attr])) {
@@ -68,8 +60,7 @@ function serializeData(body, options) {
       serializedData[attr] = serializeFn(data[attr], serializeOptions);
     }
   }
-  console.log('serializedData', serializedData)
-  return serializedData;
+  return removeNulls(serializedData);
 }
 
 function serializeFn(data, serializeOptions) {
@@ -78,15 +69,7 @@ function serializeFn(data, serializeOptions) {
       return data;
     }
     return null;
-  } else if (data == null) {
-    if (!serializeOptions.excludeNull) {
-      return data;
-    }
-    return null;
   } else if (data == undefined) {
-    if (!serializeOptions.excludeUndefined) {
-      return data;
-    }
     return null;
   } else if (typeof data === "boolean") {
     if (serializeOptions.getBoolsAsString) {
@@ -94,16 +77,9 @@ function serializeFn(data, serializeOptions) {
     } else {
       return data ? 1 : 0;
     }
-  } else if (typeof data === "number") {
-    if (data === -10) {
-      return null;
-    } else if (serializeOptions.roundNumber) {
-      return parseFloat(roundFormatter(data));
-    }
-    return data;
+  } else if (typeof data === "number" && data === -10) {
+    return null;
   } else if (data instanceof Date) {
-      console.log('dataDate', data)
-      console.log('DateFormatter.dateToString(data)', DateFormatter.dateToString(data))
     return DateFormatter.dateToString(data);
   } else {
     return data;
@@ -111,7 +87,7 @@ function serializeFn(data, serializeOptions) {
 }
 
 function removeNulls(obj) {
-  let isArray = obj instanceof Array;
+  var isArray = obj instanceof Array;
   for (var k in obj) {
     if (obj[k] === null) isArray ? obj.splice(k, 1) : delete obj[k];
     else if (typeof obj[k] == "object") removeNulls(obj[k]);
