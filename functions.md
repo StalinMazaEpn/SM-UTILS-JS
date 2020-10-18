@@ -90,3 +90,40 @@ Permite validar si el valor que recibe es una cédula ecuatoriana válida
 ```js
 console.log(validateCedula("123456789")); //false
 ```
+
+## Operadores
+>@smtech97/sm-utils/operators
+
+**Serializar datos**
+
+Permite serializar datos de un array, un objecto o una variable
+
+```js
+console.log(serializeData(45.254)); 
+//45.25
+console.log(serializeData(
+    [114, 24.5402, new Date("2020-10-17"), "24.0000", 
+    {"Fecha": new Date("2020-10-17")}, 
+    [{"nombre": "Americo"}]]
+)); 
+/*
+[
+    114, 24.54, "2020-10-17", "24.0000",
+    { "Fecha": "2020-10-17" },
+    [ { "nombre": "Americo" }]
+]
+*/
+```
+
+**Remover Nulos**
+
+Permite eliminar valores nulos o indefinidos de un array o un objecto
+
+```js
+console.log(removeNulls({"id": 1, precio: null})); 
+//{"id":1}
+console.log(removeNulls([{"id": 1, precio: null}])); 
+//[{"id":1}]
+console.log(removeNulls([{"id": 1, precio: null}, 8, "4", null])); 
+//[{"id":1},8,"4"]
+```
